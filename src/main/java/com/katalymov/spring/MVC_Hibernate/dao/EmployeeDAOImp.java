@@ -19,18 +19,24 @@ public class EmployeeDAOImp implements EmployeeDAO{
     }
 
     @Override
-    @Transactional
     public List<Employee> getAllEmployees() {
         Session session = sessionFactory.getCurrentSession();
-        List<Employee> allEmployees = session.createQuery("from Employee", Employee.class).getResultList();
-
-        return allEmployees;
+        return session.createQuery("from Employee", Employee.class).getResultList();
     }
 
     @Override
-    @Transactional
     public void saveEmployee(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(employee);
+        session.saveOrUpdate(employee);
     }
+
+    @Override
+    public Employee getEmployee(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        System.out.println("kyky");
+        Employee employee = session.get(Employee.class, id);
+
+        return employee;
+    }
+
 }

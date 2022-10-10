@@ -6,6 +6,7 @@ import com.katalymov.spring.MVC_Hibernate.service.EmployeeService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -38,5 +39,13 @@ public class Controller {
     public String saveEmployee(@ModelAttribute ("emp") Employee employee){
         employeeService.saveEmployee(employee);
         return "redirect:/";
+    }
+
+    @RequestMapping("/updateInfo")
+    public String updateEmployee(@RequestParam("empId") int id, Model model){
+        Employee employee = employeeService.getEmployee(id);
+        System.out.println(employee);
+        model.addAttribute("emp", employee);
+        return "addEmployee";
     }
 }
